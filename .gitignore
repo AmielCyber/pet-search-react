@@ -1,16 +1,58 @@
-bin/
-obj/
-riderModule.iml
-/_ReSharper.Caches/
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# Mac stuff
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# production
+/build
+
+# misc
 .DS_Store
-*.dmg
-*.app
+*.pem
 
-# JetBrains Rider
-.idea/
-.sln.iml
-PetSearch.sln.DotSettings.user
-PetSearch.sln.DotSettings.user
-PetSearch.sln.DotSettings.user
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# local env files
+.env*.local
+.env
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# VS-code stuff
+.vscord
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
