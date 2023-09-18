@@ -1,4 +1,4 @@
-import {useContext, useEffect} from "react";
+import {useContext} from "react";
 import {useSearchParams} from "react-router-dom";
 
 import {LocationContext, LocationContextType} from "../../hooks/LocationContext.tsx";
@@ -9,14 +9,21 @@ export default function LocationButtons() {
     const {location, loadingNewLocation, setLocationFromZipCode, setLocationFromGeolocation} = useContext(LocationContext) as LocationContextType;
     const [searchParams , setSearchParams] = useSearchParams();
 
-    useEffect(() => {
-        const newSearchParams = getNewSearchParamsLocation(location.zipcode, searchParams);
-        setSearchParams(newSearchParams);
-    }, [location])
+    const handleZipCodeChange = async (newZipcode: string): Promise<void> => {
+        const updatedZipcode = await setLocationFromZipCode(newZipcode);
+        if(updatedZipcode !== undefined){
+            const newSearchParams = getNewSearchParamsLocation(updatedZipcode, searchParams);
+            setSearchParams(newSearchParams);
+        }
+    }
 
-    const handleZipCodeChange = async (newZipcode: string): Promise<void> => await setLocationFromZipCode(newZipcode);
-
-    const handleLocateMe = async (): Promise<void> => await setLocationFromGeolocation();
+    const handleLocateMe = async (): Promise<void> => {
+        const updatedZipcode = await setLocationFromGeolocation();
+        if(updatedZipcode !== undefined){
+            const newSearchParams = getNewSearchParamsLocation(updatedZipcode, searchParams);
+            setSearchParams(newSearchParams);
+        }
+    }
 
     return (
         <>
