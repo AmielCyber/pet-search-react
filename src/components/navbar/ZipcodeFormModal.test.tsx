@@ -1,32 +1,30 @@
 /**
  * @vitest-environment jsdom
  */
-import {cleanup, fireEvent, render, screen} from "@testing-library/react";
-import LocationModal from "../../../components/layout/LocationModal.tsx";
+import {cleanup, fireEvent, render, screen, waitFor} from "@testing-library/react";
 import {afterEach, beforeEach, describe, expect} from "vitest";
 
-const onSubmit = (newZipCode: string) => console.log(newZipCode);
-const onClose = () => console.log("close");
+import ZipcodeFormModal from "./ZipcodeFormModal.tsx";
 
- function getButtonWithTextContent(buttons: HTMLElement[], textContent: RegExp ): HTMLElement | undefined{
+function getButtonWithTextContent(buttons: HTMLElement[], textContent: RegExp ): HTMLElement | undefined{
     return buttons.find(button => button.textContent?.match(textContent));
- }
-const propsOnCloseMock = vi.fn(onClose);
-const propsOnSubmitMock = vi.fn(onSubmit);
+}
+const propsOnCloseMock = vi.fn();
+const propsOnZipcodeChangeMock = vi.fn();
+
 describe("LocationModal", () => {
     beforeEach(() => {
-        render(<LocationModal onClose={propsOnCloseMock} onZipcodeChange={() => console.log()} />);
+        render(<ZipcodeFormModal onClose={propsOnCloseMock} onZipcodeChange={propsOnZipcodeChangeMock} />);
     });
     afterEach(() => {
         propsOnCloseMock.mockClear();
-        propsOnSubmitMock.mockClear();
+        propsOnZipcodeChangeMock.mockClear();
         cleanup();
     });
 
     it('should display New Zip code as header.', () => {
         // Arrange
         const headerElement = screen.getByRole("heading");
-        // /.../i disable case sensitive.
         // Act and Assert
         expect(headerElement.textContent).toMatch(/New Zip Code/i);
     });
@@ -53,56 +51,64 @@ describe("LocationModal", () => {
         const buttons = screen.getAllByRole("button");
         const cancelReg = /cancel/i;
         const cancelButton = getButtonWithTextContent(buttons, cancelReg);
-        if(!cancelButton) throw new Error("Cancel button not found!");
+        expect(cancelButton).not.toBeUndefined();
         // Act
-        fireEvent.click(cancelButton);
+        fireEvent.click(cancelButton as HTMLElement);
         expect(propsOnCloseMock).toBeCalled();
     });
-    it('should not call the onSubmit prop function if input is empty.', () => {
+    it('should not call the onSubmit prop function if input is empty.', async () => {
         // Arrange
         const buttons = screen.getAllByRole("button");
         const submitReg = /submit/i;
         // Undefined if not found.
         const submitButton = getButtonWithTextContent(buttons, submitReg);
-        if(!submitButton) throw new Error("Cancel button not found!");
+        expect(submitButton).not.toBeUndefined();
         const input = screen.getByRole("textbox");
         fireEvent.change(input, {target: {value: ''}});
-        fireEvent.click(submitButton);
-        expect(propsOnSubmitMock).not.toBeCalled();
+        fireEvent.click(submitButton as HTMLElement);
+        await waitFor(() => {
+            expect(propsOnZipcodeChangeMock).not.toBeCalled();
+        });
     });
-    it('should not call the onSubmit prop function if input does not have numbers exclusively.', () => {
+    it('should not call the onSubmit prop function if input does not have numbers exclusively.', async () => {
         // Arrange
         const buttons = screen.getAllByRole("button");
         const submitReg = /submit/i;
         // Undefined if not found.
         const submitButton = getButtonWithTextContent(buttons, submitReg);
-        if (!submitButton) throw new Error("Cancel button not found!");
+        expect(submitButton).not.toBeUndefined();
         const input = screen.getByRole("textbox");
         fireEvent.change(input, {target: {value: 'abcde'}});
-        fireEvent.click(submitButton);
-        expect(propsOnSubmitMock).not.toBeCalled();
+        fireEvent.click(submitButton as HTMLElement);
+        await waitFor(() => {
+            expect(propsOnZipcodeChangeMock).not.toBeCalled();
+        });
     });
-    it('should not call the onSubmit prop function if input does only has less than 5 numbers..', () => {
+    it('should not call the onSubmit prop function if input does only has less than 5 numbers..', async () => {
         // Arrange
         const buttons = screen.getAllByRole("button");
         const submitReg = /submit/i;
         // Undefined if not found.
         const submitButton = getButtonWithTextContent(buttons, submitReg);
-        if (!submitButton) throw new Error("Cancel button not found!");
+        expect(submitButton).not.toBeUndefined();
         const input = screen.getByRole("textbox");
         fireEvent.change(input, {target: {value: '123'}});
-        fireEvent.click(submitButton);
-        expect(propsOnSubmitMock).not.toBeCalled();
+        fireEvent.click(submitButton as HTMLElement);
+        await waitFor(() => {
+            expect(propsOnZipcodeChangeMock).not.toBeCalled();
+        });
     });
-    it('should call the onSubmit prop function if input is made of 5 numbers', function () {
+    it('should call the onSubmit prop function if input is made of 5 numbers', async function () {
         const buttons = screen.getAllByRole("button");
         const submitReg = /submit/i;
         // Undefined if not found.
         const submitButton = getButtonWithTextContent(buttons, submitReg);
-        if(!submitButton) throw new Error("Cancel button not found!");
+        expect(submitButton).not.toBeUndefined();
         const input = screen.getByRole<HTMLTextAreaElement>("textbox");
         fireEvent.change(input, {target: {value: '92101'}});
-        fireEvent.click(submitButton);
-        expect(propsOnSubmitMock).toBeCalled();
+        fireEvent.click(submitButton as HTMLElement);
+        await waitFor(() => {
+            expect(propsOnZipcodeChangeMock).toBeCalled();
+        });
     });
 });

@@ -6,7 +6,7 @@ import {Outlet, ScrollRestoration} from "react-router-dom";
 import {darkModeTheme, lightModeTheme} from "./theme/materialTheme";
 import useMediaQuery from '@mui/material/useMediaQuery';
 import {LocationProvider} from "./hooks/LocationContext";
-import NavBar from "./components/layout/NavBar";
+import TopNavigationBar from "./components/navbar/TopNavigationBar.tsx";
 
 const containerSx: SxProps<Theme> = {
     paddingBottom: "2rem"
@@ -29,7 +29,7 @@ export default function App() {
             <CssBaseline/>
             <SnackbarProvider autoHideDuration={3000} dense={true} maxSnack={2}/>
             <LocationProvider>
-                <NavBar isDarkMode={isDarkMode} onToggleDarkMode={handleToggleDarkMode}/>
+                < TopNavigationBar isDarkMode={isDarkMode} onToggleDarkMode={handleToggleDarkMode}/>
                 <Container maxWidth="xl" sx={containerSx}>
                     <ScrollRestoration/>
                     <Outlet/>

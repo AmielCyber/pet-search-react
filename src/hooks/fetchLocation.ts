@@ -1,4 +1,4 @@
-import type {Location} from "../../hooks/LocationContext.tsx";
+import type {Location} from "./LocationContext.tsx";
 
 const BASE_URL = import.meta.env.VITE_API_URL;
 
@@ -7,9 +7,9 @@ export type LocationResponse = {
     errorMessage?: string;
 }
 
-function getErrorMessage(responseCode: number, fromZipcode: boolean): string{
-    if(fromZipcode){
-        switch (responseCode){
+function getErrorMessage(responseCode: number, fromZipcode: boolean): string {
+    if (fromZipcode) {
+        switch (responseCode) {
             case 400:
                 return "Invalid zipcode entered."
             case 404:
@@ -18,7 +18,7 @@ function getErrorMessage(responseCode: number, fromZipcode: boolean): string{
                 return "There was an error in validating your entered zipcode."
         }
     }
-    switch (responseCode){
+    switch (responseCode) {
         case 400:
             return "Invalid coordinates entered."
         case 404:
@@ -28,12 +28,12 @@ function getErrorMessage(responseCode: number, fromZipcode: boolean): string{
     }
 }
 
-export async function getLocationFromZipCode(zipcode: string): Promise<LocationResponse>{
+export async function getLocationFromZipCode(zipcode: string): Promise<LocationResponse> {
     try {
         const response: Response = await fetch(BASE_URL + `Location/Zipcode/${zipcode}`, {
             method: "Get"
         })
-        if(!response.ok){
+        if (!response.ok) {
             return {
                 errorMessage: getErrorMessage(response.status, true)
             }
@@ -42,27 +42,27 @@ export async function getLocationFromZipCode(zipcode: string): Promise<LocationR
         return {
             location: responseData as Location,
         }
-    }catch(e){
+    } catch (e) {
         return {
             errorMessage: getErrorMessage(500, true)
         }
     }
 }
 
-function getCurrentPosition(): Promise<GeolocationPosition>{
+function getCurrentPosition(): Promise<GeolocationPosition> {
     return new Promise((resolve, reject) => {
-        if("geolocation" in navigator){
+        if ("geolocation" in navigator) {
             navigator.geolocation.getCurrentPosition(resolve, reject);
-        }else{
+        } else {
             reject(new Error("Geolocation is not supported by your browser."))
         }
     })
 }
 
-async function getLocationFromCoordinates(longitude: number, latitude: number): Promise<LocationResponse>{
+async function getLocationFromCoordinates(longitude: number, latitude: number): Promise<LocationResponse> {
     try {
         const response: Response = await fetch(BASE_URL + `location/coordinates?longitude=${longitude}&latitude=${latitude}`)
-        if(!response.ok){
+        if (!response.ok) {
             return {
                 errorMessage: getErrorMessage(response.status, false)
             }
@@ -71,21 +71,21 @@ async function getLocationFromCoordinates(longitude: number, latitude: number): 
         return {
             location: responseData as Location,
         }
-    }catch(e){
+    } catch (e) {
         return {
             errorMessage: getErrorMessage(500, false)
         }
     }
 }
 
-export async function getUserLocation(): Promise<LocationResponse>{
-    try{
+export async function getUserLocation(): Promise<LocationResponse> {
+    try {
         const position = await getCurrentPosition();
         const longitude = position.coords.longitude;
         const latitude = position.coords.latitude;
         return await getLocationFromCoordinates(longitude, latitude);
-    }catch(e){
-        if(e instanceof Error){
+    } catch (e) {
+        if (e instanceof Error) {
             return {
                 errorMessage: e.message
             }
