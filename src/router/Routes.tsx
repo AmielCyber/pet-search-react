@@ -10,35 +10,42 @@ import NotFoundPage from "../pages/NotFoundPage.tsx";
 const PetSearchPage = lazy(() => import("../pages/PetSearchPage"))
 const PetPage = lazy(() => import("../pages/PetPage"))
 
+export const path = {
+    home: "/",
+    search: "/search",
+    pets: "/pets",
+    notFound: "/not-found",
+}
+
 const router = createBrowserRouter([
     {
-        path: "/",
+        path: path.home,
         element: <App/>,
         errorElement: <ErrorPage />,
         children: [
             {
-                path: "/",
+                path: path.home,
                 element: <HomePage/>
             },
             {
-                path: "/search/:petType",
+                path: `${path.search}/:petType`,
                 element:
                     <Suspense fallback={<LoadingPage pageName="search"/>}>
                         <PetSearchPage/>
                     </Suspense>
             },
             {
-                path: "/pets/:id",
+                path: `${path.pets}/:id`,
                 element:
                     <Suspense fallback={<LoadingPage pageName="pet"/>}>
                         <PetPage/>
                     </Suspense>
             },
             {
-                path: "/not-found",
+                path: path.notFound,
                 element: <NotFoundPage />
             },
-            {path: "*", element: <Navigate replace to="/not-found"/>},
+            {path: "*", element: <Navigate replace to={path.notFound}/>},
         ],
     },
 ]);
