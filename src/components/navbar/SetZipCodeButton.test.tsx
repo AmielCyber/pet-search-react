@@ -13,7 +13,7 @@ const defaultLocation: Location = {
     locationName: "San Diego, California 92101, United States",
 };
 
-describe("SetZipCodeButton", () => {
+describe(SetZipCodeButton.name, () => {
     afterEach(() =>{
         cleanup()
         propsOnZipcodeChangeMock.mockClear();

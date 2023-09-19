@@ -8,7 +8,7 @@ import LocateMeButton from "./LocateMeButton.tsx";
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 const onLocateMe = () => {};
 const propsOnLocateMeMock = vi.fn(onLocateMe);
-describe("HomeLink", () => {
+describe(LocateMeButton.name, () => {
     // Arrange.
     afterEach(() =>{
         cleanup()

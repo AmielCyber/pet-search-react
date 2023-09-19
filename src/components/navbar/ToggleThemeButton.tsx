@@ -8,10 +8,10 @@ type Props = {
 };
 
 export default function ToggleThemeButton(props: Props){
-    const toggleDarkModeTitle = props.isDarkMode? "Light Mode" : "Dark Mode";
+    const toggleThemeTitle = props.isDarkMode? "Toggle Light Mode" : "Toggle Dark Mode";
 
     return (
-        <IconButton onClick={props.onToggleDarkMode} color="inherit" title={toggleDarkModeTitle}>
+        <IconButton onClick={props.onToggleDarkMode} color="inherit" title={toggleThemeTitle}>
             {props.isDarkMode ? <LightModeIcon /> : <DarkModeIcon />}
         </IconButton>
     )

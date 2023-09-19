@@ -6,7 +6,7 @@ import {cleanup, render, screen, act, fireEvent} from "@testing-library/react";
 import ToggleThemeButton from "./ToggleThemeButton.tsx";
 
 const onToggleDarkModeMock = vi.fn();
-describe("ToggleThemeButton", () => {
+describe(ToggleThemeButton.name, () => {
     afterEach(() =>{
         cleanup()
         onToggleDarkModeMock.mockClear();

@@ -7,7 +7,7 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 
 import HomeLink from "./HomeLink.tsx";
 
-describe("HomeLink", () => {
+describe(HomeLink.name, () => {
     // Arrange.
     beforeEach(() => render(
         <BrowserRouter>

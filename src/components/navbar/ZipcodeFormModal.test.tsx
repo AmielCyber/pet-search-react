@@ -12,7 +12,7 @@ function getButtonWithTextContent(buttons: HTMLElement[], textContent: RegExp ):
 const propsOnCloseMock = vi.fn();
 const propsOnZipcodeChangeMock = vi.fn();
 
-describe("LocationModal", () => {
+describe(ZipcodeFormModal.name, () => {
     beforeEach(() => {
         render(<ZipcodeFormModal onClose={propsOnCloseMock} onZipcodeChange={propsOnZipcodeChangeMock} />);
     });
