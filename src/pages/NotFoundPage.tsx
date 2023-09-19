@@ -1,6 +1,8 @@
 import {Box, Link as MuiLink, Typography} from "@mui/material";
 import {Link} from "react-router-dom";
 
+import {path} from "../router/Routes.tsx";
+
 export default function NotFoundPage() {
     return (
         <>
@@ -11,7 +13,7 @@ export default function NotFoundPage() {
                 <Typography variant="body1" paragraph>The page you are looking for does not exist.</Typography>
             </Box>
             <Box textAlign="center">
-                <MuiLink sx={{textDecoration: "none"}} component={Link} to="/">
+                <MuiLink sx={{textDecoration: "none"}} component={Link} to={path.home}>
                     Take Me Home
                 </MuiLink>
             </Box>
