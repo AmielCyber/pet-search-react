@@ -3,7 +3,7 @@ import {Box, Link as MuiLink, Typography} from "@mui/material";
 
 export default function ErrorPage() {
     const error: unknown = useRouteError();
-    console.log(error);
+    console.error(error);
 
     let errorMsg: string;
     if (isRouteErrorResponse(error)) {
