@@ -1,26 +1,25 @@
-import {useLocation, useNavigate, useParams} from "react-router-dom";
-import {Alert, Button} from "@mui/material";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import DisplayInfo from "../components/pet/DisplayInfo.tsx";
-// Our import.
+import {useParams} from "react-router-dom";
+import {Alert} from "@mui/material";
+
+import BackToSearchResultsButton from "../components/pet-display-info/BackToSearchResultsButton.tsx";
+import DisplayInfo from "../components/pet-display-info/DisplayInfo.tsx";
+
 
 export default function PetPage() {
-  const params = useParams();
-  const {state} = useLocation();
-  const navigate = useNavigate();
-  const id = params.id ?? "error";
+    const params = useParams();
 
-  if (id === "error" || Number.isNaN(parseInt(id))) {
+    const id = params.id ?? "error";
+
     return (
-      <main>
-        <Alert severity="error">Invalid pet id entered.</Alert>
-      </main>
+        <main>
+            {id === "error" || Number.isNaN(parseInt(id)) ? (
+                <Alert severity="error">Invalid pet id entered.</Alert>
+            ) : (
+                <>
+                    <BackToSearchResultsButton/>
+                    <DisplayInfo id={id}/>
+                </>
+            )}
+        </main>
     );
-  }
-  return (
-    <main>
-        {state?.fromSearch &&  <Button startIcon={<ArrowBackIcon />} onClick={() => navigate(-1)} size="large">Back to search results</Button>}
-        <DisplayInfo id={id} />
-    </main>
-  );
 }

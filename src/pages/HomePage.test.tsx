@@ -1,10 +1,12 @@
-import {afterEach, describe} from "vitest";
+/**
+ * @vitest-environment jsdom
+ */
 import {createMemoryRouter, RouterProvider} from "react-router-dom";
-import {cleanup, render, screen, } from "@testing-library/react";
+import {cleanup, render, screen} from "@testing-library/react";
 
-import HomePage from "./HomePage.tsx";
-import {LocationProvider} from "../hooks/LocationContext.tsx";
+import HomePage from "./HomePage";
 import {path} from "../router/Routes.tsx";
+import {LocationProvider} from "../hooks/LocationContext.tsx";
 
 describe(HomePage.name, () => {
     beforeEach(() => {
