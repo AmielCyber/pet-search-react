@@ -1,3 +1,6 @@
+/**
+ * @vitest-environment jsdom
+ */
 import {afterEach, describe} from "vitest";
 import {cleanup, render, screen, } from "@testing-library/react";
 import LoadingPage from "./LoadingPage.tsx";
