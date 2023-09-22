@@ -5,7 +5,7 @@ import SvgIcon from "@mui/material/SvgIcon";
 // Source from https://www.svgrepo.com/svg/176708/cat-animals
 export default function CatIcon(props: SvgIconProps) {
   return (
-    <SvgIcon version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" {...props}>
+    <SvgIcon version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" {...props} data-testid="cat-icon">
       <g>
         <g>
           <circle cx="93.001" cy="122.066" r="11.429" />
