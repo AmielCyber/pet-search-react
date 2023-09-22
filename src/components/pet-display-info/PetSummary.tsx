@@ -12,7 +12,7 @@ type Props = {
 
 export default function PetSummary(props: Props) {
     return (
-        <Grid container justifyContent="center" columnSpacing={4} rowSpacing={3} alignItems="center">
+        <Grid container justifyContent="center" columnSpacing={4} rowSpacing={3} alignItems="center" aria-busy="false">
             <Grid item xs={12} textAlign="center" mt={2}>
                 <PageTitle name={props.petData.name}/>
             </Grid>
