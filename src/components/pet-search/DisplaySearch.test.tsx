@@ -29,7 +29,7 @@ describe(DisplaySearch.name, () => {
                 searchParams={new URLSearchParams({type: "dog"})}
                 searchQueryURL={""}
                 onPageChange={vi.fn()}
-            />
+                onQueryChange={vi.fn()}/>
         );
         expect(screen.getByText(/failed/i)).toBeInTheDocument();
     })
