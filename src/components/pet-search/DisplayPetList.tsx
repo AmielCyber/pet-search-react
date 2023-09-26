@@ -1,27 +1,31 @@
 import {Grid} from "@mui/material";
 
 import type Pet from "../../models/pet.ts";
-import PetLoadingList from "./PetLoadingList.tsx";
+import PetListLoading from "./PetListLoading.tsx";
 import PetList from "./PetList.tsx";
 
 type Props = {
     petData: Pet[] | undefined;
-    isLoading: boolean;
     itemsPerPage: number;
+    isLoading: boolean;
 };
 export default function DisplayPetList(props: Props) {
-    if (!props.petData || props.isLoading) {
-        return (
-            <Grid container spacing={2} justifyContent="center" aria-live="polite" aria-busy="true"
-                  data-testid="pet-list-container">
-                <PetLoadingList itemsPerPage={props.itemsPerPage}/>
-            </Grid>
-        );
-    }
     return (
-        <Grid container spacing={2} justifyContent="center" aria-live="polite" aria-busy="false"
-              data-testid="pet-list-container">
-            <PetList petData={props.petData}/>;
+        <Grid
+            container
+            direction="row"
+            justifyContent="space-evenly"
+            alignItems="flex-start"
+            spacing={2}
+            aria-live="polite"
+            aria-busy={props.isLoading}
+            data-testid="pet-list-container"
+        >
+            {props.isLoading ? (
+                <PetListLoading itemsPerPage={props.itemsPerPage}/>
+            ) : (
+                <PetList petData={props.petData as Pet[]}/>
+            )}
         </Grid>
     );
 }

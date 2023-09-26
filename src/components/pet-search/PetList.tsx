@@ -5,5 +5,5 @@ type Props = {
     petData: Pet[]
 }
 export default function PetList(props: Props) {
-    return <> {props.petData.map((pet) => <PetCard key={pet.id} pet={pet}/>)} </>;
+    return <> {props.petData.map((pet) => <PetCard key={pet.id} pet={pet}/>)}</>;
 }

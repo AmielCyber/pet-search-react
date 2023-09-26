@@ -4,7 +4,7 @@ import {Grid, Skeleton} from "@mui/material";
 type Props = {
     itemsPerPage: number;
 }
-export default function PetLoadingList(props: Props) {
+export default function PetListLoading(props: Props) {
     const skeletonList = new Array<ReactNode>(props.itemsPerPage);
     for (let i = 0; i < skeletonList.length; i++) {
         skeletonList[i] = (

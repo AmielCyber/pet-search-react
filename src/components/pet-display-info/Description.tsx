@@ -22,7 +22,7 @@ export default function Description(props: Props) {
       <Typography variant="h4">Description</Typography>
       <Typography variant="body1">{decodedDescription}</Typography>
 
-      <MaterialLink href={props.url}>
+      <MaterialLink href={props.url} target="_blank">
         More at PetFinder.com.
       </MaterialLink>
     </section>

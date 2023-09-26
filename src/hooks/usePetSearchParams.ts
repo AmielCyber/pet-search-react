@@ -1,4 +1,4 @@
-import {ChangeEvent, useContext} from "react";
+import {useContext} from "react";
 import {Location, LocationContext, LocationContextType} from "./LocationContext.tsx";
 import {useParams, useSearchParams} from "react-router-dom";
 
@@ -7,7 +7,7 @@ const petMap = new Map().set("dogs", "dog").set("cats", "cat");
 type PetSearchParams = {
     locationName: string;
     searchParams: URLSearchParams | null,
-    onPageChange: (_: ChangeEvent<unknown>, value: number) => void;
+    onSearchParamsChange: (name: string, value: string, resetPage: boolean) => void;
     errorMessage: string;
 }
 
@@ -16,11 +16,14 @@ export default function usePetSearchParams(): PetSearchParams {
     const params = useParams();
     const [searchParams, setSearchParams] = useSearchParams();
 
-    const handlePageChange = (_: ChangeEvent<unknown>, value: number) => {
+    const handleSearchPramsChange = (name: string, value: string, resetPage: boolean) => {
         const newSearchParams = new URLSearchParams(searchParams);
-        newSearchParams.set("page", value.toString());
+        newSearchParams.set(name, value);
+        if(resetPage)
+            newSearchParams.set("page", "1");
         setSearchParams(newSearchParams);
-    };
+    }
+
 
     const petType = params.petType ?? "";
 
@@ -29,25 +32,29 @@ export default function usePetSearchParams(): PetSearchParams {
             locationName: "",
             searchParams: null,
             errorMessage: `$Pet Type: ${petType} not supported.`,
-            onPageChange: handlePageChange,
+            onSearchParamsChange: handleSearchPramsChange,
         }
     }
     return {
         locationName: location.locationName,
         searchParams: getNewSearchParams(searchParams, location, petType),
         errorMessage: "",
-        onPageChange: handlePageChange,
+        onSearchParamsChange: handleSearchPramsChange,
     }
 }
 
 function getNewSearchParams(currentSearchParams: URLSearchParams, location: Location, petType: string): URLSearchParams {
-    const zipCode = currentSearchParams.get("location") ?? location.zipcode;
-    const page = currentSearchParams.get("page") ?? "1";
+    const searchParams = new URLSearchParams(currentSearchParams);
+    setRequiredSearchParams(petType, location, searchParams);
 
-    const apiSearchParams = new URLSearchParams();
-    apiSearchParams.append("type", petMap.get(petType));
-    apiSearchParams.append("location", zipCode);
-    apiSearchParams.append("page", page);
+    return searchParams;
+}
 
-    return apiSearchParams;
+function setRequiredSearchParams(petType: string | undefined, location: Location, searchParams: URLSearchParams) {
+    if (!searchParams.has("type"))
+        searchParams.set("type", petMap.get(petType));
+    if (!searchParams.has("location"))
+        searchParams.set("location", location.zipcode);
+    if (!searchParams.has("page"))
+        searchParams.set("page", "1");
 }
