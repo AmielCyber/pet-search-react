@@ -9,7 +9,7 @@ type Props = {
     currentPage: number;
     totalPages: number;
     isLoading: boolean;
-    onPageChange: (event: ChangeEvent<unknown>, value: number) => void;
+    onPageChange: (_: ChangeEvent<unknown>, page: number) => void;
 };
 export default function PetPageNavigation(props: Props) {
     return (
