@@ -29,7 +29,7 @@ export default function DisplayInfo(props: Props) {
 
     return (
         <div aria-busy="false" aria-live="polite" data-testid={testId}>
-            <PetSummary petData={petData}/>;
+            <PetSummary petData={petData}/>
         </div>
     );
 }
