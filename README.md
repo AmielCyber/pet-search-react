@@ -19,39 +19,42 @@ the future.
 [ASP.NET Swagger UI](https://pet-search.azurewebsites.net/swagger/index.html)
 
 ## Preview
-![Desktop Preview](/Assets/DesktopPreview.gif)
+![Desktop Preview](/assets/desktop-preview.gif)
 
-![Mobile Preview](/Assets/MobilePreview.gif)
+![Mobile Preview](/assets/mobile-preview.gif)
 
 ## Technology Stack
+
+### Frontend Application
 <div style="display: flex; flex-wrap: wrap; gap: 5px">
     <img alt="React" width="30px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"/>
     <img alt="TypeScript" width="30px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg"/>
     <img alt="Jest" width="30px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jest/jest-plain.svg"/>
     <img alt="HTML" width="30px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg"/>
     <img alt="CSS" width="30px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg"/>
-    <img alt="JavaScript" width="30px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg"/>
+</div>
+
+* [React](https://react.dev) with TypeScript and [Vite](https://vitejs.dev)
+* Tested with [ViTest](https://vitest.dev)/Jest and [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
+* React Router
+* [Material UI](https://mui.com/material-ui/)
+* [Netlify Deployment](https://www.netlify.com)
+
+### Backend Application
+<div style="display: flex; flex-wrap: wrap; gap: 5px">
     <img alt="C Sharp" width="30px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg"/>
     <img alt="Dotnet Core" width="30px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dotnetcore/dotnetcore-original.svg"/>
     <img alt="Azure" width="30px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg"/>
     <img alt="MySQL" width="30px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg"/>
 </div>
 
-### Frontend Application
-* [React](https://react.dev) with TypeScript and [Vite](https://vitejs.dev)
-* Tested with ViTest/Jest and React Testing Library
-* React Router
-* Material UI
-* Netlify Deployment
-
-### Backend Application
 * C# and [ASP.NET](https://dotnet.microsoft.com/en-us/apps/aspnet) Web API
 * Tested with Xunit
-* Microsoft Azure Web App Deployment
+* [Microsoft Azure Web App Deployment](https://azure.microsoft.com/en-us/products/app-service/web)
 * MySQL
-* OpenApi/Swagger
-* PetFinder API
-* MapBox Geolocation API
+* [OpenApi/Swagger](https://www.openapis.org)
+* [PetFinder API](https://www.petfinder.com/developers/v2/docs/)
+* [MapBox Geolocation API](https://www.mapbox.com)
 
 ## Local Development Set Up
 
