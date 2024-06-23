@@ -2,13 +2,15 @@ import useSWR from "swr";
 import {useRef} from "react";
 
 import type PetResponse from "../models/petResponse.ts";
+import type {Pagination} from "../models/petResponse.ts"
+import Pet from "../models/pet.ts";
 
 const BASE_URL = import.meta.env.VITE_API_URL;
 
 const DEFAULT_ITEMS_PER_PAGE = 20;
 
 // Let SWR handle all errors.
-const fetcher = async (url: string) => {
+const fetcher = async (url: string): Promise<PetResponse> => {
     const response: Response = await fetch(BASE_URL + url, {
         method: "GET",
     });
@@ -19,8 +21,12 @@ const fetcher = async (url: string) => {
         throw new Error(responseData?.message || response.statusText);
     }
 
-    const responseData: Promise<PetResponse> = await response.json();
-    return responseData;
+    const pagination = JSON.parse(response.headers.get("X-Pagination") ?? "") as Pagination;
+    const responseData: Pet[]  = await response.json();
+    return {
+        pets: responseData,
+        pagination: pagination,
+    }
 };
 
 // Set revalidation options, fetches data again if true during the following conditions:
@@ -43,14 +49,14 @@ export default function usePetList(url: string) {
 
     // Adjust current page or total pages if they had changed.
     if (data?.pagination) {
-        if (totalPagesRef.current !== data.pagination.total_pages) {
-            totalPagesRef.current = data.pagination.total_pages;
+        if (totalPagesRef.current !== data.pagination.totalPages) {
+            totalPagesRef.current = data.pagination.totalPages;
         }
-        if (currentPageRef.current !== data.pagination.current_page) {
-            currentPageRef.current = data.pagination.current_page;
+        if (currentPageRef.current !== data.pagination.currentPage) {
+            currentPageRef.current = data.pagination.currentPage;
         }
-        if (totalCountRef.current !== data.pagination.total_count) {
-            totalCountRef.current = data.pagination.total_count;
+        if (totalCountRef.current !== data.pagination.totalCount) {
+            totalCountRef.current = data.pagination.totalCount;
         }
     }
 

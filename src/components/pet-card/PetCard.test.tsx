@@ -24,7 +24,7 @@ const petMock: Pet = {
     id: petId,
     name: "",
     photos: [],
-    primary_photo_cropped: null,
+    primaryPhotoCropped: null,
     size: "medium",
     status: "",
     type: "Cat",

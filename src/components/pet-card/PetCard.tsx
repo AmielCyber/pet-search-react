@@ -18,7 +18,7 @@ export default function PetCard(props: Props) {
 
     const handleClick = async () => await mutate(`pets/${props.pet.id}`, props.pet);
 
-    const petImgUrl = props.pet.primary_photo_cropped?.small ?? null;
+    const petImgUrl = props.pet.primaryPhotoCropped?.small ?? null;
     const petInfoUrl = `${path.pets}/${props.pet.id}`
 
     return (
