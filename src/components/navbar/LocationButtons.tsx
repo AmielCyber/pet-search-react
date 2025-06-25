@@ -39,7 +39,7 @@ function getNewSearchParamsLocation(zipcode: string, searchParams: URLSearchPara
     if (searchParams.has("page")) {
         newParams.set("page", "1");
     }
-    newParams.set("location", zipcode);
+    newParams.set("zipcode", zipcode);
 
     return newParams;
 }
