@@ -53,8 +53,8 @@ function getNewSearchParams(currentSearchParams: URLSearchParams, location: Loca
 function setRequiredSearchParams(petType: string | undefined, location: Location, searchParams: URLSearchParams) {
     if (!searchParams.has("type"))
         searchParams.set("type", petMap.get(petType));
-    if (!searchParams.has("location"))
-        searchParams.set("location", location.zipcode);
+    if (!searchParams.has("zipcode"))
+        searchParams.set("zipcode", location.zipcode);
     if (!searchParams.has("page"))
         searchParams.set("page", "1");
 }
